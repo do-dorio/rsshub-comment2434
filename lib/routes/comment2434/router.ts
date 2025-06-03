@@ -38,7 +38,7 @@ const handler: Route['handler'] = async (ctx) => {
 
 export const route: Route = {
     path: '/:keyword',
-    categories: ['community'],
+    categories: ['video'],
     example: '/comment2434/猫',
     parameters: {
         keyword: '検索キーワード（例：「猫」や「ゲーム」など）',
