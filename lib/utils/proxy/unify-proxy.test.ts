@@ -7,6 +7,7 @@ const emptyProxyObj = {
     port: undefined,
     auth: undefined,
     url_regex: '.*',
+	strategy: 'all',
 };
 
 const effectiveExpect = ({ proxyUri, proxyObj }, expectUri, expectObj) => {

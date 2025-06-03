@@ -21,11 +21,14 @@ const handler: Route['handler'] = async (ctx) => {
             if (!href) return null;
 
             return {
-                title: $elem('h5').text().trim(),
-                description: $elem('p').eq(1).text().trim(),
-                pubDate: parseDate($elem('p').eq(2).text().trim()),
-                link: new URL(href, 'https://comment2434.com').href,
-            };
+				title: $elem('h5').text().trim(),
+				description: $elem('p').eq(1).text().trim(),
+				pubDate: parseDate($elem('p').eq(2).text().trim()),
+				link: new URL(href, 'https://comment2434.com').href,
+				upvotes: undefined,
+				downvotes: undefined,
+				comments: undefined,
+			};
         })
         .filter((item): item is Exclude<typeof item, null> => item !== null); // null除去
 
@@ -38,7 +41,7 @@ const handler: Route['handler'] = async (ctx) => {
 
 export const route: Route = {
     path: '/:keyword',
-    categories: ['video'],
+    categories: ['live'],
     example: '/comment2434/猫',
     parameters: {
         keyword: '検索キーワード（例：「猫」や「ゲーム」など）',
