@@ -6,10 +6,7 @@ import { parseDate } from '@/utils/parse-date';
 console.log('✅ comment2434 route loaded');
 
 const handler: Route['handler'] = async (ctx) => {
-	console.log(ctx);
-	console.log(ctx.req);
-	console.log(ctx.req.param);
-    const keyword = ctx.req.param('keyword');
+    const keyword = 'きつね' //ctx.req.param('keyword');
 
     const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
 
