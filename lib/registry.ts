@@ -34,6 +34,7 @@ let namespaces: Record<
 switch (process.env.NODE_ENV) {
     case 'production':
         namespaces = (await import('../assets/build/routes.js')).default;
+		console.log(namespaces);
         break;
     case 'test':
         // @ts-expect-error
