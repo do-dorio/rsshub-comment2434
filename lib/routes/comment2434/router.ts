@@ -5,7 +5,9 @@ import * as cheerio from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
 
 async function handler(ctx) {
+	console.log('🟡 handler entered');
     const keyword = ctx.req.param('keyword');
+	console.log(`🔍 keyword = ${keyword}`);
     const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
 
     const response = await got(url);
