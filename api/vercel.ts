@@ -1,11 +1,7 @@
-import moduleAlias from 'module-alias';
-import { setConfig } from '../lib/config';
+import { setConfig } from '../lib/config.js';
 import { handle } from 'hono/vercel';
-import app from '../lib/app';
-import logger from '../lib/utils/logger';
-
-// ルートエイリアス @ を lib に設定（Vercelでも動作）
-moduleAlias.addAlias('@', new URL('../lib', import.meta.url).pathname);
+import app from '../lib/app.js';
+import logger from '../lib/utils/logger.js';
 
 // 実行時設定
 setConfig({
