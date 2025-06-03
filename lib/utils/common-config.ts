@@ -1,8 +1,8 @@
 import { load } from 'cheerio';
-import ofetch from '@/utils/ofetch';
+import ofetch from '#/utils/ofetch';
 import iconv from 'iconv-lite';
-import { parseDate as _parseDate } from '@/utils/parse-date';
-import _timezone from '@/utils/timezone';
+import { parseDate as _parseDate } from '#/utils/parse-date';
+import _timezone from '#/utils/timezone';
 
 function transElemText($, prop) {
     const regex = /\$\((.*)\)/g;

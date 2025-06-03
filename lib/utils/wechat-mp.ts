@@ -25,12 +25,12 @@
  * For more details of these functions, please refer to the jsDoc in the source code.
  */
 
-import ofetch from '@/utils/ofetch';
+import ofetch from '#/utils/ofetch';
 import { type Cheerio, type CheerioAPI, load } from 'cheerio';
 import type { Element } from 'domhandler';
-import { parseDate } from '@/utils/parse-date';
-import cache from '@/utils/cache';
-import logger from '@/utils/logger';
+import { parseDate } from '#/utils/parse-date';
+import cache from '#/utils/cache';
+import logger from '#/utils/logger';
 
 class WeChatMpError extends Error {
     constructor(message: string) {

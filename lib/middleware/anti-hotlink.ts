@@ -1,8 +1,8 @@
-import { config } from '@/config';
+import { config } from '#/config';
 import { load, type CheerioAPI } from 'cheerio';
-import logger from '@/utils/logger';
+import logger from '#/utils/logger';
 import { type MiddlewareHandler } from 'hono';
-import { Data } from '@/types';
+import { Data } from '#/types';
 
 const templateRegex = /\${([^{}]+)}/g;
 const allowedUrlProperties = new Set(['hash', 'host', 'hostname', 'href', 'origin', 'password', 'pathname', 'port', 'protocol', 'search', 'searchParams', 'username']);

@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
-import ofetch from '@/utils/ofetch';
-import { config } from '@/config';
+import ofetch from '#/utils/ofetch';
+import { config } from '#/config';
 
 describe('ofetch', () => {
     it('headers', async () => {
@@ -11,7 +11,7 @@ describe('ofetch', () => {
 
     it('retry', async () => {
         const requestRun = vi.fn();
-        const { default: server } = await import('@/setup.test');
+        const { default: server } = await import('#/setup.test');
         server.use(
             http.get(`http://rsshub.test/retry-test`, () => {
                 requestRun();

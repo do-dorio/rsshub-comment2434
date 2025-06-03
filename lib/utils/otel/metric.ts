@@ -3,7 +3,7 @@ import { PrometheusExporter, PrometheusSerializer } from '@opentelemetry/exporte
 import { ATTR_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
 import { MeterProvider } from '@opentelemetry/sdk-metrics';
 import type { Attributes } from '@opentelemetry/api';
-import { config } from '@/config';
+import { config } from '#/config';
 
 interface IMetricAttributes extends Attributes {
     method: string;

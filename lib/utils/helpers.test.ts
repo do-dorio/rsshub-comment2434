@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRouteNameFromPath, getSearchParamsString, parseDuration } from '@/utils/helpers';
+import { getRouteNameFromPath, getSearchParamsString, parseDuration } from '#/utils/helpers';
 
 describe('helpers', () => {
     it('getRouteNameFromPath', () => {

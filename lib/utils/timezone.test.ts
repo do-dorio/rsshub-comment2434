@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import timezone from '@/utils/timezone';
+import timezone from '#/utils/timezone';
 
 describe('timezone', () => {
     it('timezone', () => {

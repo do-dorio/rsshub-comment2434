@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import wait from '@/utils/wait';
+import wait from '#/utils/wait';
 
 describe('wait', () => {
     it('wait 0.1 second', async () => {

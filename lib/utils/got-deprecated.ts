@@ -1,5 +1,5 @@
-import logger from '@/utils/logger';
-import { config } from '@/config';
+import logger from '#/utils/logger';
+import { config } from '#/config';
 import got, { CancelableRequest, Response as GotResponse, OptionsInit, Options, Got } from 'got';
 
 type Response<T> = GotResponse<string> & {

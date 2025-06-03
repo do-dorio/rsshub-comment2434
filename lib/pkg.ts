@@ -1,4 +1,4 @@
-import { setConfig } from '@/config';
+import { setConfig } from '#/config';
 import { Hono } from 'hono';
 
 let app: Hono;
@@ -12,7 +12,7 @@ export const init = async (conf) => {
             conf
         )
     );
-    app = (await import('@/app')).default;
+    app = (await import('#/app')).default;
 };
 
 export const request = async (path) => {

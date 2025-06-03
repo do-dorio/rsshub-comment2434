@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isValidHost } from '@/utils/valid-host';
+import { isValidHost } from '#/utils/valid-host';
 
 describe('valid-host', () => {
     it('validate hostname', () => {

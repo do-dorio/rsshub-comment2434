@@ -1,13 +1,13 @@
 import { type NotFoundHandler, type ErrorHandler } from 'hono';
-import { getDebugInfo, setDebugInfo } from '@/utils/debug-info';
-import { config } from '@/config';
+import { getDebugInfo, setDebugInfo } from '#/utils/debug-info';
+import { config } from '#/config';
 import * as Sentry from '@sentry/node';
-import logger from '@/utils/logger';
-import Error from '@/views/error';
+import logger from '#/utils/logger';
+import Error from '#/views/error';
 
 import NotFoundError from './types/not-found';
 
-import { requestMetric } from '@/utils/otel';
+import { requestMetric } from '#/utils/otel';
 
 export const errorHandler: ErrorHandler = (error, ctx) => {
     const requestPath = ctx.req.path;

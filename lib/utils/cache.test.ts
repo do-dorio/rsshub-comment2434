@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, afterEach, afterAll, beforeAll } from 'vitest';
-import wait from '@/utils/wait';
+import wait from '#/utils/wait';
 
 beforeAll(() => {
     process.env.CACHE_EXPIRE = '1';
@@ -18,7 +18,7 @@ afterAll(() => {
 describe('cache', () => {
     it('memory', async () => {
         process.env.CACHE_TYPE = 'memory';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
         if (!cache.clients.memoryCache || !cache.status.available) {
             throw new Error('Memory cache client error');
         }
@@ -35,7 +35,7 @@ describe('cache', () => {
 
     it('redis', async () => {
         process.env.CACHE_TYPE = 'redis';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
         await wait(500);
         if (!cache.clients.redisClient || !cache.status.available) {
             throw new Error('Redis client error');
@@ -50,7 +50,7 @@ describe('cache', () => {
 
     it('redis with quit', async () => {
         process.env.CACHE_TYPE = 'redis';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
         if (cache.clients.redisClient) {
             await cache.clients.redisClient.quit();
         } else {
@@ -63,7 +63,7 @@ describe('cache', () => {
     it('redis with error', async () => {
         process.env.CACHE_TYPE = 'redis';
         process.env.REDIS_URL = 'redis://wrongpath:6379';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
         await cache.set('mock2', '2');
         expect(await cache.get('mock2')).toBe(null);
         await cache.clients.redisClient?.quit();
@@ -71,14 +71,14 @@ describe('cache', () => {
 
     it('no cache', async () => {
         process.env.CACHE_TYPE = 'NO';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
         await cache.set('mock2', '2');
         expect(await cache.get('mock2')).toBe(null);
     });
 
     it('throws TTL key', async () => {
         process.env.CACHE_TYPE = 'redis';
-        const cache = (await import('@/utils/cache')).default;
+        const cache = (await import('#/utils/cache')).default;
 
         try {
             await cache.get('rsshub:cacheTtl:mock');

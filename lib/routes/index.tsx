@@ -1,5 +1,5 @@
 import type { Handler } from 'hono';
-import Index from '@/views/index';
+import Index from '#/views/index';
 
 const handler: Handler = (ctx) => {
     ctx.header('Cache-Control', 'no-cache');

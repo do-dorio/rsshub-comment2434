@@ -1,5 +1,5 @@
-import { type Config } from '@/config';
-import logger from '@/utils/logger';
+import { type Config } from '#/config';
+import logger from '#/utils/logger';
 
 const defaultProtocol = 'http';
 const possibleProtocol = ['http', 'https', 'socks', 'socks4', 'socks4a', 'socks5', 'socks5h'];

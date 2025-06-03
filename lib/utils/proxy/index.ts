@@ -1,4 +1,4 @@
-import { config } from '@/config';
+import { config } from '#/config';
 import { PacProxyAgent } from 'pac-proxy-agent';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 import { SocksProxyAgent } from 'socks-proxy-agent';

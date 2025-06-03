@@ -1,7 +1,7 @@
-import logger from '@/utils/logger';
-import { config } from '@/config';
+import logger from '#/utils/logger';
+import { config } from '#/config';
 import undici, { Request, RequestInfo, RequestInit } from 'undici';
-import proxy from '@/utils/proxy';
+import proxy from '#/utils/proxy';
 import { RateLimiterMemory, RateLimiterQueue } from 'rate-limiter-flexible';
 import { useRegisterRequest } from 'node-network-devtools';
 
@@ -56,11 +56,11 @@ const wrappedFetch: typeof undici.fetch = async (input: RequestInfo, init?: Requ
         isRetry = true;
         request.headers.delete('x-prefer-proxy');
     }
-	
-	const rebuiltHeaders = new Headers();
-	for (const [key, value] of request.headers.entries()) {
-		rebuiltHeaders.set(key, value);
-	}
+
+    const rebuiltHeaders = new Headers();
+    for (const [key, value] of request.headers.entries()) {
+        rebuiltHeaders.set(key, value);
+    }
     config.enableRemoteDebugging && useCustomHeader(rebuiltHeaders);
 
     // proxy

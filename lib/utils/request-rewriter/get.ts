@@ -1,8 +1,8 @@
 import http from 'node:http';
 import https from 'node:https';
-import logger from '@/utils/logger';
-import { config } from '@/config';
-import proxy from '@/utils/proxy';
+import logger from '#/utils/logger';
+import { config } from '#/config';
+import proxy from '#/utils/proxy';
 
 type Get = typeof http.get | typeof https.get | typeof http.request | typeof https.request;
 
@@ -13,8 +13,7 @@ interface ExtendedRequestOptions extends http.RequestOptions {
     headers?: http.OutgoingHttpHeaders | readonly string[];
 }
 
-const getWrappedGet = <T extends Get>(origin: T): T => {
-    return (function (this: any, ...args: Parameters<T>): ReturnType<T> {
+const getWrappedGet = <T extends Get>(origin: T): T => function (this: any, ...args: Parameters<T>): ReturnType<T> {
         let url: URL | null;
         let options: ExtendedRequestOptions = {};
         let callback: ((res: http.IncomingMessage) => void) | undefined;
@@ -30,11 +29,7 @@ const getWrappedGet = <T extends Get>(origin: T): T => {
         } else {
             options = args[0] as ExtendedRequestOptions;
             try {
-                url = new URL(
-                    options.href ||
-                        `${options.protocol || 'http:'}//${options.hostname || options.host}${options.path || ''}` +
-                        `${options.search || (options.query ? `?${options.query}` : '')}`
-                );
+                url = new URL(options.href || String(`${options.protocol || 'http:'}//${options.hostname || options.host}${options.path || ''}` + (options.search || (options.query ? `?${options.query}` : ''))));
             } catch {
                 url = null;
             }
@@ -58,11 +53,11 @@ const getWrappedGet = <T extends Get>(origin: T): T => {
         }
 
         if (!headersLowerCaseKeys.has('accept')) {
-            headers['accept'] = '*/*';
+            headers.accept = '*/*';
         }
 
         if (!headersLowerCaseKeys.has('referer')) {
-            headers['referer'] = url.origin;
+            headers.referer = url.origin;
         }
 
         if (!options.agent && proxy.agent) {
@@ -81,7 +76,6 @@ const getWrappedGet = <T extends Get>(origin: T): T => {
         }
 
         return Reflect.apply(origin, this, [url, options, callback]) as ReturnType<T>;
-    }) as unknown as T;
-};
+    } as unknown as T;
 
 export default getWrappedGet;

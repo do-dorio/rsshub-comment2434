@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { parseRelativeDate } from '@/utils/parse-date';
+import { parseRelativeDate } from '#/utils/parse-date';
 import MockDate from 'mockdate';
 
 describe('parseRelativeDate', () => {

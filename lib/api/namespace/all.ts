@@ -1,4 +1,4 @@
-import { namespaces } from '@/registry';
+import { namespaces } from '#/registry';
 import { createRoute, RouteHandler } from '@hono/zod-openapi';
 
 const route = createRoute({

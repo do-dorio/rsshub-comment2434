@@ -1,12 +1,12 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 import { load } from 'cheerio';
 import Parser from 'rss-parser';
-import InvalidParameterError from '@/errors/types/invalid-parameter';
-import { exportedForTestingOnly, WeChatMpError, fetchArticle, finishArticleItem, fixArticleContent, normalizeUrl } from '@/utils/wechat-mp';
+import InvalidParameterError from '#/errors/types/invalid-parameter';
+import { exportedForTestingOnly, WeChatMpError, fetchArticle, finishArticleItem, fixArticleContent, normalizeUrl } from '#/utils/wechat-mp';
 const { toggleWerror, ExtractMetadata, showTypeMapReverse } = exportedForTestingOnly;
 
-vi.mock('@/utils/request-rewriter', () => ({ default: null }));
-const { default: app } = await import('@/app');
+vi.mock('#/utils/request-rewriter', () => ({ default: null }));
+const { default: app } = await import('#/app');
 const parser = new Parser();
 
 afterEach(() => toggleWerror(false));

@@ -2,8 +2,8 @@ import { Headers, FormData, Request, Response } from 'undici';
 import http from 'node:http';
 import https from 'node:https';
 
-import fetch from '@/utils/request-rewriter/fetch';
-import getWrappedGet from '@/utils/request-rewriter/get';
+import fetch from '#/utils/request-rewriter/fetch';
+import getWrappedGet from '#/utils/request-rewriter/get';
 
 Object.defineProperties(globalThis, {
     fetch: { value: fetch },

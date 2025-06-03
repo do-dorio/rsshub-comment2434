@@ -16,6 +16,9 @@
     "license": "MIT",
     "author": "DIYgod",
     "type": "module",
+	"imports": {
+		"#/*": "./lib/*"
+	},
     "main": "lib/pkg.ts",
     "files": [
         "lib"

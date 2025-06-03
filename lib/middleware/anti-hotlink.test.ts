@@ -261,7 +261,7 @@ const expects = {
 };
 
 const testAntiHotlink = async (path, expectObj, query?: string | Record<string, any>) => {
-    const app = (await import('@/app')).default;
+    const app = (await import('#/app')).default;
 
     let queryStr;
     if (query) {
@@ -285,7 +285,7 @@ const testAntiHotlink = async (path, expectObj, query?: string | Record<string, 
 };
 
 const testAntiHotlinkExtra = async (path, expectObj, query?: string | Record<string, any>) => {
-    const app = (await import('@/app')).default;
+    const app = (await import('#/app')).default;
 
     path += query ? `?${new URLSearchParams(query).toString()}` : '';
 
@@ -433,7 +433,7 @@ describe('anti-hotlink', () => {
 
     it('invalid-property', async () => {
         process.env.HOTLINK_TEMPLATE = 'https://i3.wp.com/${createObjectURL}';
-        const app = (await import('@/app')).default;
+        const app = (await import('#/app')).default;
         const response = await app.request('/test/complicated');
         expect(await response.text()).toContain('Error: Invalid URL property: createObjectURL');
     });

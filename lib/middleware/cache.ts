@@ -1,10 +1,10 @@
 import xxhash from 'xxhash-wasm';
 import type { MiddlewareHandler } from 'hono';
 
-import { config } from '@/config';
-import RequestInProgressError from '@/errors/types/request-in-progress';
-import cacheModule from '@/utils/cache/index';
-import { Data } from '@/types';
+import { config } from '#/config';
+import RequestInProgressError from '#/errors/types/request-in-progress';
+import cacheModule from '#/utils/cache/index';
+import { Data } from '#/types';
 
 const bypassList = new Set(['/', '/robots.txt', '/logo.png', '/favicon.ico']);
 // only give cache string, as the `!` condition tricky

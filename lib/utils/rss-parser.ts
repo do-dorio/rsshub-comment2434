@@ -1,4 +1,4 @@
-import { config } from '@/config';
+import { config } from '#/config';
 import Parser from 'rss-parser';
 
 const parser = new Parser({
