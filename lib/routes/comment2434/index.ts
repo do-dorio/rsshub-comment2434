@@ -1,3 +1,4 @@
+console.log('aaaa');
 export * from './router';
 export * from './namespace';
 export * from './radar';
