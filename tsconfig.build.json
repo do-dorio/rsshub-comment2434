@@ -1,5 +1,5 @@
 {
   "extends": "./tsconfig.json",
   "include": ["lib/**/*.ts", "api/vercel.ts"],
-  "exclude": ["**/*.test.ts", "**/*.spec.ts", "test", "tests", "lib/**/*.test.ts"]
+  "exclude": ["**/*.test.ts", "**/*.spec.ts", "test", "tests", "lib/**/*.test.ts","lib/app.test.ts"]
 }
