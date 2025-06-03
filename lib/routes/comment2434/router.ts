@@ -7,6 +7,7 @@ console.log('✅ comment2434 route loaded');
 
 export const handler = async (ctx) => {
     const keyword = ctx.params.keyword;
+	console.log(ctx);
     console.log('[handler] keyword =', keyword);
 
     const url = `https://comment2434.com/...keyword=${encodeURIComponent(keyword)}`;
