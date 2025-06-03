@@ -62,14 +62,11 @@ describe('request-rewriter', () => {
         }
 
         // headers
-        if (req instanceof Request) {
-			const headers: Headers = req.headers;
-			expect(headers.get('user-agent')).toBe(config.ua);
-			expect(headers.get('accept')).toBe('*/*');
-			expect(headers.get('referer')).toBe('http://rsshub.test');
-		} else {
-			throw new Error('Expected Request object, got string');
-		}
+        const headers: Headers = fetchSpy.mock.lastCall?.[0].headers;
+		console.log(headers);
+        expect(headers.get('user-agent')).toBe(config.ua);
+        expect(headers.get('accept')).toBe('*/*');
+        expect(headers.get('referer')).toBe('http://rsshub.test');
 
         // proxy
         const options = fetchSpy.mock.lastCall?.[1];
@@ -114,10 +111,9 @@ describe('request-rewriter', () => {
         const options = httpSpy.mock.lastCall?.[1];
         const headers = options?.headers;
         expect(headers?.['user-agent']).toBe(config.ua);
-        if (!Array.isArray(headers)) {
-			expect(headers.accept).toBe('*/*');
-			expect(headers.referer).toBe('http://rsshub.test');
-		}
+        expect(headers?.accept).toBe('*/*');
+        expect(headers?.referer).toBe('http://rsshub.test');
+
         // proxy
         const agentUri = options?.agent?.proxy?.href;
         expect(agentUri).toBe(process.env.PROXY_URI);

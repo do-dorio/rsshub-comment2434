@@ -53,6 +53,9 @@ export type DataItem = {
     banner?: string;
     updated?: number | string | Date;
     language?: Language;
+	upvotes?: number;
+    downvotes?: number;
+    comments?: number;
     enclosure_url?: string;
     enclosure_type?: string;
     enclosure_title?: string;
@@ -96,9 +99,6 @@ export type Data = {
     logo?: string;
     atomlink?: string;
     ttl?: number;
-	upvotes?: number;
-    downvotes?: number;
-    comments?: number;
 };
 
 type Language =
