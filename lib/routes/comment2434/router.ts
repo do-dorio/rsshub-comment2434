@@ -1,13 +1,16 @@
-console.log("✅ comment2434 route loaded");
-import type { Route } from '@/types';
+import { Route } from '@/types';
 import got from '@/utils/got';
 import * as cheerio from 'cheerio';
 import { parseDate } from '@/utils/parse-date';
 
-async function handler(ctx) {
-	console.log('🟡 handler entered');
+console.log('✅ comment2434 route loaded');
+
+const handler: Route['handler'] = async (ctx) => {
+    console.log('🟡 handler entered');
+
     const keyword = ctx.req.param('keyword');
-	console.log(`🔍 keyword = ${keyword}`);
+    console.log(`🔍 keyword = ${keyword}`);
+
     const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
 
     const response = await got(url);
@@ -15,6 +18,7 @@ async function handler(ctx) {
 
     const items = $('#result .row').toArray().map((elem) => {
         const $elem = cheerio.load(elem);
+
         return {
             title: $elem('h5').text().trim(),
             description: $elem('p').eq(1).text().trim(),
@@ -28,18 +32,17 @@ async function handler(ctx) {
         link: url,
         item: items,
     };
-}
+};
 
 export const route: Route = {
     path: '/comment2434/:keyword',
-    name: 'Comment2434',
-    url: 'https://comment2434.com',
-    maintainers: ['yourGitHubUsername'],
+    categories: ['community'],
     example: '/comment2434/猫',
     parameters: {
-        keyword: '検索キーワード',
+        keyword: '検索キーワード（例：「猫」や「ゲーム」など）',
     },
+    name: 'Comment2434',
+    url: 'comment2434.com',
+    maintainers: ['yourGitHubUsername'],
     handler,
 };
-
-console.log(route);
