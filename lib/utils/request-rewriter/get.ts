@@ -6,24 +6,35 @@ import proxy from '@/utils/proxy';
 
 type Get = typeof http.get | typeof https.get | typeof http.request | typeof https.request;
 
-const getWrappedGet: <T extends Get>(origin: T) => T = (origin) =>
-    function (this: any, ...args: Parameters<typeof origin>) {
+interface ExtendedRequestOptions extends http.RequestOptions {
+    href?: string;
+    search?: string;
+    query?: string;
+    headers?: http.OutgoingHttpHeaders | readonly string[];
+}
+
+const getWrappedGet = <T extends Get>(origin: T): T => {
+    return (function (this: any, ...args: Parameters<T>): ReturnType<T> {
         let url: URL | null;
-        let options: http.RequestOptions = {};
+        let options: ExtendedRequestOptions = {};
         let callback: ((res: http.IncomingMessage) => void) | undefined;
+
         if (typeof args[0] === 'string' || args[0] instanceof URL) {
             url = new URL(args[0]);
-            if (typeof args[1] === 'object') {
-                options = args[1];
+            if (typeof args[1] === 'object' && !Array.isArray(args[1])) {
+                options = args[1] as ExtendedRequestOptions;
                 callback = args[2];
             } else if (typeof args[1] === 'function') {
-                options = {};
                 callback = args[1];
             }
         } else {
-            options = args[0];
+            options = args[0] as ExtendedRequestOptions;
             try {
-                url = new URL(options.href || `${options.protocol || 'http:'}//${options.hostname || options.host}${options.path}${options.search || (options.query ? `?${options.query}` : '')}`);
+                url = new URL(
+                    options.href ||
+                        `${options.protocol || 'http:'}//${options.hostname || options.host}${options.path || ''}` +
+                        `${options.search || (options.query ? `?${options.query}` : '')}`
+                );
             } catch {
                 url = null;
             }
@@ -31,31 +42,29 @@ const getWrappedGet: <T extends Get>(origin: T) => T = (origin) =>
                 callback = args[1];
             }
         }
+
         if (!url) {
-            return Reflect.apply(origin, this, args) as ReturnType<typeof origin>;
+            return Reflect.apply(origin, this, args) as ReturnType<T>;
         }
 
         logger.debug(`Outgoing request: ${options.method || 'GET'} ${url}`);
 
         options.headers = options.headers || {};
-        const headersLowerCaseKeys = new Set(Object.keys(options.headers).map((key) => key.toLowerCase()));
+        const headers = options.headers as http.OutgoingHttpHeaders;
+        const headersLowerCaseKeys = new Set(Object.keys(headers).map((key) => key.toLowerCase()));
 
-        // ua
         if (!headersLowerCaseKeys.has('user-agent')) {
-            options.headers['user-agent'] = config.ua;
+            headers['user-agent'] = config.ua;
         }
 
-        // Accept
         if (!headersLowerCaseKeys.has('accept')) {
-            options.headers.accept = '*/*';
+            headers['accept'] = '*/*';
         }
 
-        // referer
         if (!headersLowerCaseKeys.has('referer')) {
-            options.headers.referer = url.origin;
+            headers['referer'] = url.origin;
         }
 
-        // proxy
         if (!options.agent && proxy.agent) {
             const proxyRegex = new RegExp(proxy.proxyObj.url_regex);
 
@@ -71,7 +80,8 @@ const getWrappedGet: <T extends Get>(origin: T) => T = (origin) =>
             }
         }
 
-        return Reflect.apply(origin, this, [url, options, callback]) as ReturnType<typeof origin>;
-    };
+        return Reflect.apply(origin, this, [url, options, callback]) as ReturnType<T>;
+    }) as unknown as T;
+};
 
 export default getWrappedGet;
