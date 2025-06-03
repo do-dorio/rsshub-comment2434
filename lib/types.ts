@@ -96,6 +96,9 @@ export type Data = {
     logo?: string;
     atomlink?: string;
     ttl?: number;
+	upvotes?: number;
+    downvotes?: number;
+    comments?: number;
 };
 
 type Language =
