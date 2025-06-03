@@ -156,16 +156,15 @@ for (const namespace in namespaces) {
     const sortedRoutes = sortRoutes(namespaceData.routes);
 
     for (const [path, routeData] of sortedRoutes) {
+		console.log(routeData)
         const wrappedHandler: Handler = async (ctx) => {
             if (!ctx.get('data')) {
                 if (typeof routeData.handler !== 'function') {
-				console.log('[debug] routeData.module typeof =', typeof routeData.module);
                     if (process.env.NODE_ENV === 'test') {
                         const { route } = await import(`./routes/${namespace}/${routeData.location}`);
                         routeData.handler = route.handler;
                     } else if (routeData.module) {
                         const { route } = await routeData.module();
-						console.log('[debug] dynamic route loaded:', route);
                         routeData.handler = route.handler;
                     }
                 }
