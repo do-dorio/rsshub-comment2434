@@ -170,7 +170,6 @@ for (const namespace in namespaces) {
                 ctx.set('data', await routeData.handler(ctx));
             }
         };
-		console.log(path);
         subApp.get(path, wrappedHandler);
     }
 }

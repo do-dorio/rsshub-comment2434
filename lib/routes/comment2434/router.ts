@@ -35,7 +35,7 @@ const handler: Route['handler'] = async (ctx) => {
 };
 
 export const route: Route = {
-    path: '/comment2434/:keyword',
+    path: '/:keyword',
     categories: ['community'],
     example: '/comment2434/猫',
     parameters: {
