@@ -1,3 +1,4 @@
+console.log(`aaa`);
 async function handler(ctx) {
     const keyword = ctx.req.param('keyword');
     console.log(`🔍 keyword = ${keyword}`);
@@ -16,13 +17,18 @@ async function handler(ctx) {
         };
     });
 
-    console.log(`✅ items found: ${items.length}`);
+	if (items.length === 0) {
+	
+		console.log(`✅ items found: ${items.length}`);
+	
+	}
 
-    return {
-        title: `comment2434 - ${keyword}`,
-        link: url,
-        item: items,
-    };
+	return {
+		title: `comment2434 - ${keyword}`,
+		link: url,
+		item: items,
+	};
+
 }
 
 export const route: Route = {
