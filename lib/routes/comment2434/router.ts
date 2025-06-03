@@ -1,9 +1,13 @@
-console.log(`aaa`);
+console.log("✅ comment2434 route loaded");
+import type { Route } from '@/types';
+import got from '@/utils/got';
+import * as cheerio from 'cheerio';
+import { parseDate } from '@/utils/parse-date';
+
 async function handler(ctx) {
     const keyword = ctx.req.param('keyword');
-    console.log(`🔍 keyword = ${keyword}`);
-
     const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
+
     const response = await got(url);
     const $ = cheerio.load(response.data);
 
@@ -17,18 +21,11 @@ async function handler(ctx) {
         };
     });
 
-	if (items.length === 0) {
-	
-		console.log(`✅ items found: ${items.length}`);
-	
-	}
-
-	return {
-		title: `comment2434 - ${keyword}`,
-		link: url,
-		item: items,
-	};
-
+    return {
+        title: `comment2434 - ${keyword}`,
+        link: url,
+        item: items,
+    };
 }
 
 export const route: Route = {
@@ -42,3 +39,5 @@ export const route: Route = {
     },
     handler,
 };
+
+console.log(route);
