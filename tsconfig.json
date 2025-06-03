@@ -19,5 +19,5 @@
         "isolatedModules": true
     },
     "include": ["./lib/**/*", "./api/vercel.ts"],
-    "exclude": ["node_modules", "*.test.*"]
+    "exclude": ["node_modules", "**/*.test.*"]
 }
