@@ -1,4 +1,4 @@
-import { namespaces } from '#/registry';
+import { namespaces } from '../registry';
 import { z, createRoute, RouteHandler } from '@hono/zod-openapi';
 
 const categoryList: Record<string, typeof namespaces> = {};

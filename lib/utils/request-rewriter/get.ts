@@ -1,8 +1,8 @@
 import http from 'node:http';
 import https from 'node:https';
-import logger from '#/utils/logger';
-import { config } from '#/config';
-import proxy from '#/utils/proxy';
+import logger from '../utils/logger';
+import { config } from '../config/index.js';
+import proxy from '../utils/proxy';
 
 type Get = typeof http.get | typeof https.get | typeof http.request | typeof https.request;
 
@@ -13,7 +13,8 @@ interface ExtendedRequestOptions extends http.RequestOptions {
     headers?: http.OutgoingHttpHeaders | readonly string[];
 }
 
-const getWrappedGet = <T extends Get>(origin: T): T => function (this: any, ...args: Parameters<T>): ReturnType<T> {
+const getWrappedGet = <T extends Get>(origin: T): T =>
+    function (this: any, ...args: Parameters<T>): ReturnType<T> {
         let url: URL | null;
         let options: ExtendedRequestOptions = {};
         let callback: ((res: http.IncomingMessage) => void) | undefined;

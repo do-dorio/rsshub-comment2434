@@ -12,8 +12,8 @@ afterAll(() => {
 
 describe('header', () => {
     it(`header`, async () => {
-        const app = (await import('#/app')).default;
-        const { config } = await import('#/config');
+        const app = (await import('../app')).default;
+        const { config } = await import('../config/index.js');
         const response = await app.request('/test/1');
         expect(response.headers.get('access-control-allow-origin')).toBe('rsshub.mock');
         expect(response.headers.get('access-control-allow-methods')).toBe('GET');
@@ -27,7 +27,7 @@ describe('header', () => {
     });
 
     it(`etag`, async () => {
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
         const response = await app.request('/test/1', {
             headers: {
                 'If-None-Match': etag,

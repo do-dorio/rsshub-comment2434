@@ -1,6 +1,6 @@
 import path from 'node:path';
 import winston from 'winston';
-import { config } from '#/config';
+import { config } from '../config/index.js';
 
 let transports: (typeof winston.transports.File)[] = [];
 if (!config.noLogfiles) {

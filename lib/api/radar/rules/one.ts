@@ -1,6 +1,6 @@
-import { namespaces } from '#/registry';
+import { namespaces } from '../registry';
 import { parse } from 'tldts';
-import { RadarDomain } from '#/types';
+import { RadarDomain } from '../types';
 import { z, createRoute, RouteHandler } from '@hono/zod-openapi';
 
 const radar: {

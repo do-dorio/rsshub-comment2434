@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
-import md5 from '#/utils/md5';
+import md5 from '../utils/md5';
 
 process.env.NODE_NAME = 'mock';
 
@@ -18,7 +18,7 @@ describe('access-control', () => {
         const key = '1L0veRSSHub';
         const code = md5('/test/2' + key);
         process.env.ACCESS_KEY = key;
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
 
         const response01 = await app.request('/');
         expect(response01.status).toBe(200);

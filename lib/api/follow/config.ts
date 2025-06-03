@@ -1,6 +1,6 @@
-import { config } from '#/config';
+import { config } from '../config/index.js';
 import { createRoute, RouteHandler } from '@hono/zod-openapi';
-import { gitHash, gitDate } from '#/utils/git-hash';
+import { gitHash, gitDate } from '../utils/git-hash';
 
 const route = createRoute({
     method: 'get',

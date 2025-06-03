@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { http, HttpResponse } from 'msw';
-import got from '#/utils/got';
-import { config } from '#/config';
+import got from '../utils/got';
+import { config } from '../config/index.js';
 import { Cookie, CookieJar } from 'tough-cookie';
 
 describe('got', () => {
@@ -12,7 +12,7 @@ describe('got', () => {
 
     it('retry', async () => {
         const requestRun = vi.fn();
-        const { default: server } = await import('#/setup.test');
+        const { default: server } = await import('../setup.test');
         server.use(
             http.get(`http://rsshub.test/retry-test`, () => {
                 requestRun();

@@ -2,16 +2,16 @@ import * as entities from 'entities';
 import { load, type CheerioAPI } from 'cheerio';
 import type { Element } from 'domhandler';
 import { simplecc } from 'simplecc-wasm';
-import ofetch from '#/utils/ofetch';
-import { config } from '#/config';
+import ofetch from '../utils/ofetch';
+import { config } from '../config/index.js';
 import { RE2JS } from 're2js';
 import markdownit from 'markdown-it';
 import { convert } from 'html-to-text';
 import sanitizeHtml from 'sanitize-html';
 import { MiddlewareHandler } from 'hono';
-import cache from '#/utils/cache';
+import cache from '../utils/cache';
 import Parser from '@postlight/parser';
-import { Data, DataItem } from '#/types';
+import { Data, DataItem } from '../types';
 
 const md = markdownit({
     html: true,

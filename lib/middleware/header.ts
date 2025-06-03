@@ -1,7 +1,7 @@
 import { MiddlewareHandler } from 'hono';
 import etagCalculate from 'etag';
-import { config } from '#/config';
-import { Data } from '#/types';
+import { config } from '../config/index.js';
+import { Data } from '../types';
 
 const headers: Record<string, string> = {
     'Access-Control-Allow-Methods': 'GET',

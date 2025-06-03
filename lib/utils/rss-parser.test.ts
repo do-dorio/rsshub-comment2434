@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import parser from '#/utils/rss-parser';
+import parser from '../utils/rss-parser';
 
 describe('rss-parser', () => {
     it('rss', async () => {

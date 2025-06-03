@@ -1,5 +1,5 @@
 import type { Handler } from 'hono';
-import { config } from '#/config';
+import { config } from '../config/index.js';
 
 const handler: Handler = (ctx) => {
     if (config.disallowRobot) {

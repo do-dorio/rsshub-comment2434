@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import app from '#/app';
-import { config } from '#/config';
+import app from '../app';
+import { config } from '../config/index.js';
 
 describe('registry', () => {
     // root

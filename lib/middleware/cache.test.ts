@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, afterEach } from 'vitest';
 import Parser from 'rss-parser';
-import wait from '#/utils/wait';
+import wait from '../utils/wait';
 
 process.env.CACHE_EXPIRE = '1';
 process.env.CACHE_CONTENT_EXPIRE = '2';
@@ -12,7 +12,7 @@ afterEach(() => {
 });
 
 const noCacheTestFunc = async () => {
-    const app = (await import('#/app')).default;
+    const app = (await import('../app')).default;
 
     const response1 = await app.request('/test/cache');
     const response2 = await app.request('/test/cache');
@@ -32,7 +32,7 @@ const noCacheTestFunc = async () => {
 describe('cache', () => {
     it('memory', async () => {
         process.env.CACHE_TYPE = 'memory';
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
 
         const response1 = await app.request('/test/cache');
         const response2 = await app.request('/test/cache');
@@ -81,7 +81,7 @@ describe('cache', () => {
 
     it('redis', async () => {
         process.env.CACHE_TYPE = 'redis';
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
 
         await wait(500);
         const response1 = await app.request('/test/cache');
@@ -128,13 +128,13 @@ describe('cache', () => {
         expect(parsed5.items[0].content).toBe('1 1');
         expect(parsed6.items[0].content).toBe('1 0');
 
-        const cache = (await import('#/utils/cache')).default;
+        const cache = (await import('../utils/cache')).default;
         await cache.clients.redisClient!.quit();
     }, 10000);
 
     it('redis with quit', async () => {
         process.env.CACHE_TYPE = 'redis';
-        const cache = (await import('#/utils/cache')).default;
+        const cache = (await import('../utils/cache')).default;
         await cache.clients.redisClient!.quit();
         await noCacheTestFunc();
     });
@@ -143,7 +143,7 @@ describe('cache', () => {
         process.env.CACHE_TYPE = 'redis';
         process.env.REDIS_URL = 'redis://wrongpath:6379';
         await noCacheTestFunc();
-        const cache = (await import('#/utils/cache')).default;
+        const cache = (await import('../utils/cache')).default;
         await cache.clients.redisClient!.quit();
     });
 
@@ -159,7 +159,7 @@ describe('cache', () => {
 
     it('throws URL key', async () => {
         process.env.CACHE_TYPE = 'memory';
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
 
         try {
             const response = await app.request('/test/cacheUrlKey');
@@ -172,7 +172,7 @@ describe('cache', () => {
     it('RSS TTL (no cache)', async () => {
         process.env.CACHE_TYPE = '';
         process.env.CACHE_EXPIRE = '600';
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
         const response = await app.request('/test/cache');
         const parsed = await parser.parseString(await response.text());
         expect(parsed.ttl).toEqual('1');
@@ -181,7 +181,7 @@ describe('cache', () => {
     it('RSS TTL (w/ cache)', async () => {
         process.env.CACHE_TYPE = 'memory';
         process.env.CACHE_EXPIRE = '600';
-        const app = (await import('#/app')).default;
+        const app = (await import('../app')).default;
         const response = await app.request('/test/cache');
         const parsed = await parser.parseString(await response.text());
         expect(parsed.ttl).toEqual('10');

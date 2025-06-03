@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import app from '#/app';
+import app from '../app';
 import Parser from 'rss-parser';
 const parser = new Parser();
-import { config } from '#/config';
+import { config } from '../config/index.js';
 
 process.env.ALLOW_USER_SUPPLY_UNSAFE_DOMAIN = 'true';
 
@@ -10,7 +10,7 @@ const routes = {
     '/test/:id': '/test/1',
 };
 if (process.env.FULL_ROUTES_TEST) {
-    const { namespaces } = await import('#/registry');
+    const { namespaces } = await import('../registry');
     for (const namespace in namespaces) {
         for (const route in namespaces[namespace].routes) {
             const requireConfig = namespaces[namespace].routes[route].features?.requireConfig;

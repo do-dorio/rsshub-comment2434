@@ -1,8 +1,8 @@
 import { serve } from '@hono/node-server';
-import logger from '#/utils/logger';
-import { getLocalhostAddress } from '#/utils/common-utils';
-import { config } from '#/config';
-import app from '#/app';
+import logger from '../utils/logger';
+import { getLocalhostAddress } from '../utils/common-utils';
+import { config } from '../config/index.js';
+import app from '../app';
 
 const port = config.connect.port;
 const hostIPList = getLocalhostAddress();

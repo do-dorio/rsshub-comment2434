@@ -1,7 +1,7 @@
-import { Route } from '#/types';
-import got from '#/utils/got';
+import { Route } from '../types';
+import got from '../utils/got';
 import * as cheerio from 'cheerio';
-import { parseDate } from '#/utils/parse-date';
+import { parseDate } from '../utils/parse-date';
 
 const handler: Route['handler'] = async () => {
     // async(ctx)
@@ -19,7 +19,9 @@ const handler: Route['handler'] = async () => {
             const href = $elem('a').attr('href');
 
             // hrefがない場合はnullを返す（あとで除外）
-            if (!href) {return null;}
+            if (!href) {
+                return null;
+            }
 
             return {
                 title: $elem('h5').text().trim(),

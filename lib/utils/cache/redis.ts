@@ -1,6 +1,6 @@
-import { config } from '#/config';
+import { config } from '../config/index.js';
 import Redis from 'ioredis';
-import logger from '#/utils/logger';
+import logger from '../utils/logger';
 import type CacheModule from './base';
 
 const status = { available: false };
