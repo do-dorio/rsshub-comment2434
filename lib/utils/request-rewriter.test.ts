@@ -12,6 +12,7 @@ const { config } = await import('@/config');
 const { default: ofetch } = await import('@/utils/ofetch');
 
 describe('request-rewriter', () => {
+		console.log('request-rewriters');
     it('fetch', async () => {
         const fetchSpy = vi.spyOn(undici, 'fetch');
 
@@ -23,6 +24,7 @@ describe('request-rewriter', () => {
 
         // headers
         const headers: Headers = fetchSpy.mock.lastCall?.[0].headers;
+		console.log(headers);
         expect(headers.get('user-agent')).toBe(config.ua);
         expect(headers.get('accept')).toBe('*/*');
         expect(headers.get('referer')).toBe('http://rsshub.test');
@@ -63,7 +65,6 @@ describe('request-rewriter', () => {
 
         // headers
         const headers: Headers = fetchSpy.mock.lastCall?.[0].headers;
-		console.log(headers);
         expect(headers.get('user-agent')).toBe(config.ua);
         expect(headers.get('accept')).toBe('*/*');
         expect(headers.get('referer')).toBe('http://rsshub.test');
