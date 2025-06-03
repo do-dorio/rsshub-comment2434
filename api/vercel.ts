@@ -1,16 +1,19 @@
-const path = require('node:path');
-const moduleAlias = require('module-alias');
-moduleAlias.addAlias('@', path.join(__dirname, '../lib'));
+import moduleAlias from 'module-alias';
+import { setConfig } from '../lib/config';
+import { handle } from 'hono/vercel';
+import app from '../lib/app';
+import logger from '../lib/utils/logger';
 
-const { setConfig } = require('../lib/config');
+// ルートエイリアス @ を lib に設定（Vercelでも動作）
+moduleAlias.addAlias('@', new URL('../lib', import.meta.url).pathname);
+
+// 実行時設定
 setConfig({
     NO_LOGFILES: true,
 });
 
-const { handle } = require('hono/vercel');
-const app = require('../lib/app');
-const logger = require('../lib/utils/logger');
-
+// 起動ログ
 logger.info(`🎉 RSSHub is running! Cheers!`);
 
-module.exports = handle(app);
+// Honoアプリをエクスポート
+export default handle(app);
