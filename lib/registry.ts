@@ -34,7 +34,6 @@ let namespaces: Record<
 switch (process.env.NODE_ENV) {
     case 'production':
         namespaces = (await import('../assets/build/routes.js')).default;
-		console.dir(namespaces, { depth: null });
         break;
     case 'test':
         // @ts-expect-error
@@ -160,11 +159,13 @@ for (const namespace in namespaces) {
         const wrappedHandler: Handler = async (ctx) => {
             if (!ctx.get('data')) {
                 if (typeof routeData.handler !== 'function') {
+				console.log('[debug] routeData.module typeof =', typeof routeData.module);
                     if (process.env.NODE_ENV === 'test') {
                         const { route } = await import(`./routes/${namespace}/${routeData.location}`);
                         routeData.handler = route.handler;
                     } else if (routeData.module) {
                         const { route } = await routeData.module();
+						console.log('[debug] dynamic route loaded:', route);
                         routeData.handler = route.handler;
                     }
                 }
