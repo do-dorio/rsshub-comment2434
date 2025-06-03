@@ -6,14 +6,12 @@ import { parseDate } from '@/utils/parse-date';
 console.log('✅ comment2434 route loaded');
 
 const handler: Route['handler'] = async (ctx) => {
-    console.log('🟡 handler entered');
-
     const keyword = ctx.req.param('keyword');
-    console.log(`🔍 keyword = ${keyword}`);
 
     const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
 
     const response = await got(url);
+	console.log(response)
     const $ = cheerio.load(response.data);
 
     const items = $('#result .row').toArray().map((elem) => {
