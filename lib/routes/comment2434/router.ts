@@ -5,27 +5,31 @@ import { parseDate } from '@/utils/parse-date';
 
 console.log('✅ comment2434 route loaded');
 
-export const handler = async (ctx) => {
-
+const handler: Route['handler'] = async (ctx) => {
 	console.log(ctx);
-    const keyword = ctx.params.keyword;
-    console.log('[handler] keyword =', keyword);
+	console.log(ctx.req);
+	console.log(ctx.req.param);
+    const keyword = ctx.req.param('keyword');
 
-    const url = `https://comment2434.com/...keyword=${encodeURIComponent(keyword)}`;
-    console.log('[handler] fetch URL =', url);
+    const url = `https://comment2434.com/comment/?keyword=${encodeURIComponent(keyword)}&type=0&mode=0&sort_mode=0`;
 
-    const res = await fetch(url);
-    console.log('[handler] status =', res.status);
+    const response = await got(url);
+    const $ = cheerio.load(response.data);
 
-    const html = await res.text();
-    console.log('[handler] html length =', html.length);
+    const items = $('#result .row').toArray().map((elem) => {
+        const $elem = cheerio.load(elem);
 
-    // parseしてitems配列があるなら…
-    const items = parse(html);
-    console.log('[handler] items.length =', items.length);
+        return {
+            title: $elem('h5').text().trim(),
+            description: $elem('p').eq(1).text().trim(),
+            pubDate: parseDate($elem('p').eq(2).text().trim()),
+            link: new URL($elem('a').attr('href'), 'https://comment2434.com').href,
+        };
+    });
 
     return {
-        title: `comment2434: ${keyword}`,
+        title: `comment2434 - ${keyword}`,
+        link: url,
         item: items,
     };
 };
