@@ -156,13 +156,9 @@ for (const namespace in namespaces) {
     const sortedRoutes = sortRoutes(namespaceData.routes);
 
     for (const [path, routeData] of sortedRoutes) {
-		console.log(routeData);
-		console.log('[debug] typeof handler =', typeof routeData.handler);
         const wrappedHandler: Handler = async (ctx) => {
             if (!ctx.get('data')) {
-				console.log('[debug] typeof handler =', typeof routeData.handler);
                 if (typeof routeData.handler !== 'function') {
-					console.log('[debug] typeof handler =', typeof routeData.handler);
                     if (process.env.NODE_ENV === 'test') {
                         const { route } = await import(`./routes/${namespace}/${routeData.location}`);
                         routeData.handler = route.handler;
@@ -174,6 +170,7 @@ for (const namespace in namespaces) {
                 ctx.set('data', await routeData.handler(ctx));
             }
         };
+		console.log(path);
         subApp.get(path, wrappedHandler);
     }
 }
