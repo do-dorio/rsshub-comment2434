@@ -3,7 +3,7 @@ export default {
         routes: {
             '/:keyword': {
                 path: '/:keyword',
-                categories: ['community'],
+                categories: ['live'],
                 example: '/comment2434/猫',
                 parameters: {
                     keyword: '検索キーワード（例：「猫」や「ゲーム」など）',

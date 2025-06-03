@@ -17,7 +17,7 @@
 *.iml
 
 app-minimal/
-assets/build/
+#assets/build/
 coverage
 docs/.vuepress/dist
 memory-bank/
@@ -30,7 +30,7 @@ combined.log
 dump.rdb
 error.log
 npm-debug.log
-package-lock.json
+# package-lock.json
 # pnpm-lock.yaml
 yarn.lock
 yarn-error.log
