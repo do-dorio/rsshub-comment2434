@@ -1,4 +1,4 @@
-import randUserAgent from '@/utils/rand-user-agent';
+import randUserAgent from './utils/rand-user-agent.js';
 import 'dotenv/config';
 import { ofetch } from 'ofetch';
 
@@ -858,7 +858,7 @@ calculateValue();
 
 (async () => {
     if (envs.REMOTE_CONFIG) {
-        const { default: logger } = await import('@/utils/logger');
+        const { default: logger } = await import('./utils/logger.js');
         try {
             const data = await ofetch(envs.REMOTE_CONFIG, {
                 headers: {
