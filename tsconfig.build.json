@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["lib/**/*.ts", "api/vercel.ts"],
+  "exclude": ["**/*.test.ts", "node_modules"]
+}
